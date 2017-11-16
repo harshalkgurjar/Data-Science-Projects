@@ -1,0 +1,62 @@
+library(car)
+Independence:  Looking at the data we can say that each row is independent of other. I could not find any evidence to show that the observations are dependent on one another.
+
+Linearity:
+
+crPlots(murderModel)
+
+From the plot of murderModels, no significant non linear relations was detected. Hence property of linearity is satisfied
+
+
+Normality:
+
+qqPlot(murderModel, labels=row.names(states), id.method="identify", simulate=TRUE, main=" qqPlot")
+
+From the plot, I can see only one outlier. Rest all the points are within the confidence interval. Hence the Normality condition is satisfied.
+
+Global validation using the gvlma library:
+
+library(gvlma)
+
+gvmodel <- gvlma(murderModel)
+
+summary(gvmodel)
+
+Summary shows that model has a p-value of 0.703 (for Global Stat).
+
+The summary shows that all the assumptions are acceptable.
+
+
+
+Error/Noise:
+
+durbinWatsonTest(murderModel)
+
+This shows a non significant p-value of 0.238. Therefore there is no autocorelation and hence there are no errors.
+
+
+Homoscedasticity:
+
+ncvTest(murderModel)
+
+This gives significant p-value of 0.93. Therefore we can reject the alternate Hypothesis. Hence the error variance is constant which implies homoscedasticity.
+
+
+Multicolinearity:
+
+sqrt(vif(murderModel))
+
+All the values are less than 2. Therefore there is no multicolinearity.
+
+
+
+Outliers:
+
+outlierTest(murderModel)
+
+Massachusetts is the only outlier.
+
+
+
+Model Complexity:
+Illiteracy and Population are the only significant attributes. So I created a model with only with these two attributes. It was giving a slightly improved value for "Adjusted R-squared"

@@ -1,0 +1,49 @@
+###### To upgrade pip ########
+-> python -m pip install --upgrade pip
+
+###### To install packages scikit-learn #####
+sudo -i pip install scikit-learn
+
+###### To install packages nltk #####
+sudo -i pip install nltk
+
+###### To install packages gensim #####
+sudo -i pip install gensim
+
+
+## Start Zookeeper services ###
+bin/zookeeper-server-start.sh config/zookeeper.properties
+
+##Start Kafka Services ###
+bin/kafka-server-start.sh config/server.properties
+
+##Create a topic named ​twitterstream ​in kafka: ##
+bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic twitterstream
+
+## Check what topics you have with: ##
+bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic twitterstream
+
+
+sing the Twitter Streaming API 
+In   order   to   download   the   tweets   from   twitter   streaming   API   and   push   them   to   kafka   queue,   we  
+have   provided   a   python   script   ​
+twitter_to_kafka.py ​
+.   The   script   will   need   your   twitter  
+authentication   tokens   (keys).   A   guide   to   create   an   app   on   twitter   to   get   your   authentication  
+tokens can be found ​
+here​
+. 
+ 
+Once   you   have   your   authentication   tokens,   create   or   update   the   ​
+twitter.txtfile
+    with   these  
+credentials. Note, never commit your credentials on code sharing websites, such as Github. 
+ 
+After   updating   the   text   file   with   your   twitter   keys,   you   can   start   downloading   tweets   from   the  
+twitter   stream   API   and   push   them   to   the   twitterstream   topic   in   Kafka.   Do   this   by   running   our  
+program as follows: 
+$ python twitter_to_kafka.py
+
+
+
+
